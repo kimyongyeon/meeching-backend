@@ -3,7 +3,7 @@ package com.msa.study.meeching.common.security.handler;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.msa.study.meeching.common.redis.RedisCrudRepository;
-import com.msa.study.meeching.common.security.dto.AuthLoginInfoDTO;
+import com.msa.study.meeching.common.security.domain.dto.AuthLoginInfoDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;

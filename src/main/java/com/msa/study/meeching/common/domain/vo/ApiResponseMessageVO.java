@@ -1,4 +1,4 @@
-package com.msa.study.meeching.common.domain;
+package com.msa.study.meeching.common.domain.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ApiResponseMessage {
+public class ApiResponseMessageVO {
    // HttpStatus
    private String status;
    // Http Default Message
@@ -17,7 +17,7 @@ public class ApiResponseMessage {
    // Error Code
    private String errorCode;
 
-   public ApiResponseMessage(String status, String message) {
+   public ApiResponseMessageVO(String status, String message) {
       this.status = status;
       this.message = message;
    }

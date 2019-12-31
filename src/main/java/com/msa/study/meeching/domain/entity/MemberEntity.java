@@ -1,4 +1,4 @@
-package com.msa.study.meeching.domain;
+package com.msa.study.meeching.domain.entity;
 
 import lombok.Data;
 

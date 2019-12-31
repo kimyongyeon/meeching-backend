@@ -1,6 +1,6 @@
 package com.msa.study.meeching.common.handler;
 
-import com.msa.study.meeching.common.domain.ApiResponseMessage;
+import com.msa.study.meeching.common.domain.vo.ApiResponseMessageVO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
 import org.springframework.http.HttpStatus;
@@ -20,11 +20,11 @@ public class ExceptionHandler {
     * @return
     */
    @org.springframework.web.bind.annotation.ExceptionHandler(Exception.class)
-   public ResponseEntity<ApiResponseMessage> knownError(Exception exception) {
+   public ResponseEntity<ApiResponseMessageVO> knownError(Exception exception) {
       log.error("알수없는에러: ", exception);
-      ApiResponseMessage message
-         = new ApiResponseMessage("Fail", "알수없는에러", exception.getMessage(), "ERR_001");
-      return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.EXPECTATION_FAILED);
+      ApiResponseMessageVO message
+         = new ApiResponseMessageVO("Fail", "알수없는에러", exception.getMessage(), "ERR_001");
+      return new ResponseEntity<ApiResponseMessageVO>(message, HttpStatus.EXPECTATION_FAILED);
    }
 
    /**
@@ -33,11 +33,11 @@ public class ExceptionHandler {
     * @return
     */
    @org.springframework.web.bind.annotation.ExceptionHandler(RuntimeException.class)
-   public ResponseEntity<ApiResponseMessage> runTimeError(RuntimeException re) {
+   public ResponseEntity<ApiResponseMessageVO> runTimeError(RuntimeException re) {
       log.error("런타임에러: ", re);
-      ApiResponseMessage message
-         = new ApiResponseMessage("Fail", "런타임에러", re.getMessage(), "ERR_002");
-      return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.EXPECTATION_FAILED);
+      ApiResponseMessageVO message
+         = new ApiResponseMessageVO("Fail", "런타임에러", re.getMessage(), "ERR_002");
+      return new ResponseEntity<ApiResponseMessageVO>(message, HttpStatus.EXPECTATION_FAILED);
    }
 
    /**
@@ -46,11 +46,11 @@ public class ExceptionHandler {
     * @return
     */
    @org.springframework.web.bind.annotation.ExceptionHandler(DataAccessException.class)
-   public ResponseEntity<ApiResponseMessage> runTimeError(DataAccessException de) {
+   public ResponseEntity<ApiResponseMessageVO> runTimeError(DataAccessException de) {
       log.error("데이터엑세스에러: ", de);
-      ApiResponseMessage message
-         = new ApiResponseMessage("Fail", "데이터베이스에러", de.getMessage(), "ERR_003");
-      return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.EXPECTATION_FAILED);
+      ApiResponseMessageVO message
+         = new ApiResponseMessageVO("Fail", "데이터베이스에러", de.getMessage(), "ERR_003");
+      return new ResponseEntity<ApiResponseMessageVO>(message, HttpStatus.EXPECTATION_FAILED);
    }
 
 

@@ -1,4 +1,4 @@
-package com.msa.study.meeching.common.security.dto;
+package com.msa.study.meeching.common.security.domain.dto;
 
 import lombok.Data;
 

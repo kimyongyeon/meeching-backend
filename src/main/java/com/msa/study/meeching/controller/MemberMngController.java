@@ -1,6 +1,6 @@
 package com.msa.study.meeching.controller;
 
-import com.msa.study.meeching.common.domain.ApiResponseMessage;
+import com.msa.study.meeching.common.domain.vo.ApiResponseMessageVO;
 import com.msa.study.meeching.domain.vo.MemberVO;
 import com.msa.study.meeching.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,13 +26,13 @@ public class MemberMngController {
     * @return
     */
    @PostMapping("/join")
-   public ResponseEntity<ApiResponseMessage> join(@RequestBody MemberVO memberVO) {
+   public ResponseEntity<ApiResponseMessageVO> join(@RequestBody MemberVO memberVO) {
 
       // 회원가입 트랜잭션 호출
       memberService.join(memberVO); // 에러나면 exceptionHandler 호출...
-      ApiResponseMessage message
-         = new ApiResponseMessage("Success", "회원가입 완료");
-      return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.CREATED);
+      ApiResponseMessageVO message
+         = new ApiResponseMessageVO("Success", "회원가입 완료");
+      return new ResponseEntity<ApiResponseMessageVO>(message, HttpStatus.CREATED);
 
    }
 
@@ -44,12 +44,12 @@ public class MemberMngController {
     * @return
     */
    @GetMapping("/findUserId")
-   public ResponseEntity<ApiResponseMessage> findUserId(@ModelAttribute MemberVO memberVO) {
+   public ResponseEntity<ApiResponseMessageVO> findUserId(@ModelAttribute MemberVO memberVO) {
 
       // 회원아이디 조회 트랜잭션 호출
       String userId = memberService.findByUserId(memberVO);
-      ApiResponseMessage message = new ApiResponseMessage("Success", userId);
-      return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
+      ApiResponseMessageVO message = new ApiResponseMessageVO("Success", userId);
+      return new ResponseEntity<ApiResponseMessageVO>(message, HttpStatus.OK);
 
    }
 
@@ -61,12 +61,12 @@ public class MemberMngController {
     * @return
     */
    @DeleteMapping("/remove")
-   public ResponseEntity<ApiResponseMessage> removeMember(@RequestBody MemberVO memberVO) {
+   public ResponseEntity<ApiResponseMessageVO> removeMember(@RequestBody MemberVO memberVO) {
 
       // 회원탈퇴 트랜잭션 호출
       memberService.remove(memberVO);
-      ApiResponseMessage message = new ApiResponseMessage("Success", "회원삭제 성공");
-      return new ResponseEntity<ApiResponseMessage>(message, HttpStatus.OK);
+      ApiResponseMessageVO message = new ApiResponseMessageVO("Success", "회원삭제 성공");
+      return new ResponseEntity<ApiResponseMessageVO>(message, HttpStatus.OK);
    }
 
 

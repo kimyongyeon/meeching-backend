@@ -1,6 +1,6 @@
 package com.msa.study.meeching.service;
 
-import com.msa.study.meeching.domain.MemberEntity;
+import com.msa.study.meeching.domain.entity.MemberEntity;
 import com.msa.study.meeching.domain.vo.MemberVO;
 import com.msa.study.meeching.domain.vo.RemoveEnum;
 import com.msa.study.meeching.repository.MemberRepository;

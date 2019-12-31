@@ -1,6 +1,6 @@
 package com.msa.study.meeching.common.security.cacheEvent;
 
-import com.msa.study.meeching.common.security.dto.AuthorRoleManageDTO;
+import com.msa.study.meeching.common.security.domain.dto.AuthorRoleManageDTO;
 import org.springframework.context.ApplicationListener;
 import org.springframework.stereotype.Component;
 

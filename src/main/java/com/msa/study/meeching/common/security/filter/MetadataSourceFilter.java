@@ -1,7 +1,7 @@
 package com.msa.study.meeching.common.security.filter;
 
 import com.msa.study.meeching.common.security.cacheEvent.CustomCacheComponent;
-import com.msa.study.meeching.common.security.dto.AuthorRoleManageDTO;
+import com.msa.study.meeching.common.security.domain.dto.AuthorRoleManageDTO;
 import com.msa.study.meeching.common.security.service.SecuredObjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;

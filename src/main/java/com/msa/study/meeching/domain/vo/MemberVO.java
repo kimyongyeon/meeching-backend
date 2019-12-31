@@ -1,6 +1,6 @@
 package com.msa.study.meeching.domain.vo;
 
-import com.msa.study.meeching.domain.MemberEntity;
+import com.msa.study.meeching.domain.entity.MemberEntity;
 import lombok.Data;
 
 @Data
