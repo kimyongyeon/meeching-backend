@@ -1,3 +1,4 @@
+
 application:
   name: meeching
 
@@ -9,23 +10,23 @@ spring:
     livereload:
       enabled: true
   datasource:
-    platform: mysql
+    platform: h2
     #    initializationMode: always
     initializationMode: never
-    #    data: classpath:data-mariadb.sql
-    #    schema: classpath:schema-mariadb.sql
+#    data: classpath:data-mariadb.sql
+#    schema: classpath:schema-mariadb.sql
     hikari:
       pool-name: hikariPool01
-      driver-class-name: com.mysql.jdbc.Driver
-      jdbc-url: jdbc:mysql://localhost:3306/meeching_dev
-      user-name: meeching_admin
-      password: 1234
+      driver-class-name: org.h2.Driver
+      jdbc-url: jdbc:h2:mem:meeching_local;DB_CLOSE_DELAY=-1;MODE=MySQL
+      user-name: sa
+      password:
 
-  session:
-    store-type: redis
-    redis:
-      flush-mode: on-save
-      namespace: spring:session
+#  session:
+#    store-type: redis
+#    redis:
+#      flush-mode: on-save
+#      namespace: spring:session
 
   redis:
     host: poc-dev.redis.cache.windows.net
@@ -33,7 +34,7 @@ spring:
     port: 6379
     timetolive: 180 # value second
   jpa: #JPA Configuration
-    database-platform: org.hibernate.dialect.MySQL5Dialect
+    database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:
       ddl-auto: create
@@ -44,8 +45,6 @@ logging:
     org.springframework: DEBUG
     org.springframework.jdbc.datasource.init: DEBUG
     org.springframework.web: DEBUG
-    com.skt.poc.common: DEBUG
-    com.skt.poc.biz.component: DEBUG
 
 
 poc:
@@ -53,3 +52,11 @@ poc:
   #    paths: /v1/** # PathSelectors.ant
   storage:
     location: C:\uploadFile
+
+server:
+  port: 8080
+
+
+
+
+
