@@ -1,4 +1,4 @@
-package com.msa.study.meeching.config;
+package com.msa.study.meeching.common.security;
 
 import com.msa.study.meeching.common.security.filter.CustomLoginBeforeFilter;
 import com.msa.study.meeching.common.security.filter.MetadataSourceFilter;
@@ -38,29 +38,29 @@ import java.util.Map;
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Autowired
-//    private UserService userService;
+    @Autowired
+    private UserService userService;
 
-//    @Autowired
-//    private Environment environment;
+    @Autowired
+    private Environment environment;
 
-//    @Autowired
-//    private CustomLoginSuccessHandler customLoginSuccessHandler;
+    @Autowired
+    private CustomLoginSuccessHandler customLoginSuccessHandler;
 
-//    @Autowired
-//    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
+    @Autowired
+    private CustomLogoutSuccessHandler customLogoutSuccessHandler;
 
-//    @Autowired
-//    RoleHierarchyService roleHierarchyService;
+    @Autowired
+    RoleHierarchyService roleHierarchyService;
 
-//    @Autowired
-//    private CustomLoginBeforeFilter customLoginBeforeFilter;
+    @Autowired
+    private CustomLoginBeforeFilter customLoginBeforeFilter;
 
-//    @Autowired
-//    private AuthenticationManager authenticationManager;
+    @Autowired
+    private AuthenticationManager authenticationManager;
 
-//    @Autowired
-//    private MetadataSourceFilter metadataSourceFilter;
+    @Autowired
+    private MetadataSourceFilter metadataSourceFilter;
 
 
     @Bean
@@ -69,37 +69,36 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-//    @Bean
-//    public FilterSecurityInterceptor filterSecurityInterceptor() {
-//        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
-//        filterSecurityInterceptor.setAuthenticationManager(authenticationManager);
-//        filterSecurityInterceptor.setSecurityMetadataSource(metadataSourceFilter);
-//        filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
-//        return filterSecurityInterceptor;
-//    }
+    @Bean
+    public FilterSecurityInterceptor filterSecurityInterceptor() {
+        FilterSecurityInterceptor filterSecurityInterceptor = new FilterSecurityInterceptor();
+        filterSecurityInterceptor.setAuthenticationManager(authenticationManager);
+        filterSecurityInterceptor.setSecurityMetadataSource(metadataSourceFilter);
+        filterSecurityInterceptor.setAccessDecisionManager(affirmativeBased());
+        return filterSecurityInterceptor;
+    }
 
-//    @Bean
-//    public AffirmativeBased affirmativeBased() {
-//        List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
-//        accessDecisionVoters.add(roleVoter());
-//        AffirmativeBased affirmativeBased = new AffirmativeBased(accessDecisionVoters);
-//        return affirmativeBased;
-//    }
+    @Bean
+    public AffirmativeBased affirmativeBased() {
+        List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
+        accessDecisionVoters.add(roleVoter());
+        AffirmativeBased affirmativeBased = new AffirmativeBased(accessDecisionVoters);
+        return affirmativeBased;
+    }
 
-//    @Bean
-//    public RoleHierarchyVoter roleVoter() {
-//        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
-//        roleHierarchyVoter.setRolePrefix("ROLE_");
-//        return roleHierarchyVoter;
-//    }
+    @Bean
+    public RoleHierarchyVoter roleVoter() {
+        RoleHierarchyVoter roleHierarchyVoter = new RoleHierarchyVoter(roleHierarchy());
+        roleHierarchyVoter.setRolePrefix("ROLE_");
+        return roleHierarchyVoter;
+    }
 
-    //RoleHierarchy 설정
-//    @Bean
-//    public RoleHierarchy roleHierarchy() {
-//        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+//    RoleHierarchy 설정
+    @Bean
+    public RoleHierarchy roleHierarchy() {
+        RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
+        StringBuilder stringBuilder = new StringBuilder();
 //        List<Map<String, Object>> list = roleHierarchyService.roleHierarchy();
-////        List<Map<String, Object>> list = new ArrayList<>();
-//        StringBuilder stringBuilder = new StringBuilder();
 //        list.stream()
 //                .forEach(i -> {
 //                    stringBuilder.append(i.get("child"));
@@ -107,15 +106,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                    stringBuilder.append(i.get("parent"));
 //                    stringBuilder.append("\n");
 //                });
-//        roleHierarchy.setHierarchy(stringBuilder.toString());
-//        return roleHierarchy;
-//    }
+        roleHierarchy.setHierarchy(stringBuilder.toString());
+        return roleHierarchy;
+    }
 
-//    @Override
-//    protected void configure(AuthenticationManagerBuilder auth) {
-//        CustomAuthenticationProvider authenticationProvider = getAuthenticationProvider(userService);
-//        auth.authenticationProvider(authenticationProvider);
-//    }
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) {
+        CustomAuthenticationProvider authenticationProvider = getAuthenticationProvider(userService);
+        auth.authenticationProvider(authenticationProvider);
+    }
 
     @Bean
     public CustomAuthenticationProvider getAuthenticationProvider(UserService userService) {
@@ -195,24 +194,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
      * @param http
      * @throws Exception
      */
-//    private void disableSecurityForLocalH2Console(HttpSecurity http) throws Exception {
-//        if (isLocalProfile()) {
-//            log.warn("Disable security to allow H2 console");
-//            String url = "/h2-console/**";
-//            http.csrf().ignoringAntMatchers(url);
-//            http.authorizeRequests().antMatchers(url).permitAll();
-//            http.headers().frameOptions().disable();
-//        }
-//    }
+    private void disableSecurityForLocalH2Console(HttpSecurity http) throws Exception {
+        if (isLocalProfile()) {
+            log.warn("Disable security to allow H2 console");
+            String url = "/h2-console/**";
+            http.csrf().ignoringAntMatchers(url);
+            http.authorizeRequests().antMatchers(url).permitAll();
+            http.headers().frameOptions().disable();
+        }
+    }
 
     /**
      * Spring Profile이 로컬(local)인지 Check.
      *
      * @return
      */
-//    private boolean isLocalProfile() {
-//        boolean isLocal = Arrays.asList(environment.getActiveProfiles()).contains("local");
-//        log.debug("▶ isLocal : {}", isLocal);
-//        return isLocal;
-//    }
+    private boolean isLocalProfile() {
+        boolean isLocal = Arrays.asList(environment.getActiveProfiles()).contains("local");
+        log.debug("▶ isLocal : {}", isLocal);
+        return isLocal;
+    }
 }

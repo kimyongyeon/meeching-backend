@@ -1,20 +1,23 @@
 package com.msa.study.meeching.common.security.handler;
 
 import com.msa.study.meeching.common.redis.RedisCrudRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutSuccessHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-//@Component
+@Component
 public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
 
-//    @Autowired
-//    RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     @Value("${redis-session.expired.time:300000}")
     private long expiredTime;
@@ -26,8 +29,8 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
             try {
                 request.getSession().invalidate();
                 String sessionId = request.getRequestedSessionId();
-//                RedisCrudRepository.set(sessionId, "", expiredTime, redisTemplate);
-//                RedisCrudRepository.set("access-token", "", expiredTime, redisTemplate);
+                RedisCrudRepository.set(sessionId, "", expiredTime, redisTemplate);
+                RedisCrudRepository.set("access-token", "", expiredTime, redisTemplate);
             } catch (Exception e) {
                 e.printStackTrace();
             }

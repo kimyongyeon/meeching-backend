@@ -1,4 +1,4 @@
-package com.msa.study.meeching.config;
+package com.msa.study.meeching.common.config;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;

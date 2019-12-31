@@ -6,26 +6,28 @@ import com.msa.study.meeching.common.security.service.SecuredObjectService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;
 import org.springframework.security.web.FilterInvocation;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
 import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.stereotype.Service;
 import org.springframework.util.AntPathMatcher;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Slf4j
-//@Service
+@Service
 public class MetadataSourceFilter implements FilterInvocationSecurityMetadataSource, InitializingBean {
 
     @Autowired
     private CustomCacheComponent cacheManager;
     private Map<RequestMatcher, List<ConfigAttribute>> requestMap;
 
-//    @Autowired
-//    RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     @Autowired
     private SecuredObjectService securedObjectService;

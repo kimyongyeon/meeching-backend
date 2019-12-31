@@ -5,7 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.msa.study.meeching.common.redis.RedisCrudRepository;
 import com.msa.study.meeching.common.security.dto.AuthLoginInfoDTO;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -14,6 +16,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import org.springframework.security.web.savedrequest.HttpSessionRequestCache;
 import org.springframework.security.web.savedrequest.RequestCache;
 import org.springframework.security.web.savedrequest.SavedRequest;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,14 +25,14 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
-//@Component
+@Component
 @Slf4j
 public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     @Value("${redis-session.expired.time:300000}")
     private long expiredTime;
 
-//    @Autowired
-//    RedisTemplate<String, Object> redisTemplate;
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
 
     private RequestCache requestCache = new HttpSessionRequestCache();
     private RedirectStrategy redirectStratgy = new DefaultRedirectStrategy();
@@ -71,7 +74,7 @@ public class CustomLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHan
         Gson gson = new GsonBuilder().create();
         String authLoginInfoDTOJson  = gson.toJson(authLoginInfoDTO);
         log.debug(String.format("authLoginInfoDTOJson: ", authLoginInfoDTOJson));
-//        RedisCrudRepository.set(sessionId, authLoginInfoDTOJson, expiredTime, redisTemplate);
+        RedisCrudRepository.set(sessionId, authLoginInfoDTOJson, expiredTime, redisTemplate);
 
         response.setHeader("access-token", sessionId);
         response.setHeader("auth-token", auth.getAuthorities().toString());
