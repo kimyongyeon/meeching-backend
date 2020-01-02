@@ -22,7 +22,6 @@ import java.io.IOException;
 @Profile("default") // profile이 local일때만 활성화
 @Configuration
 @EnableCaching
-@EnableRedisHttpSession
 public class EmbeddedRedisConfig {
     @Value("${spring.redis.port}")
     private int redisPort;

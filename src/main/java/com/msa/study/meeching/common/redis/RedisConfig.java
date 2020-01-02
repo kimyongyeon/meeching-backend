@@ -32,7 +32,6 @@ import java.time.Duration;
         prefix = "spring.redis"
 )
 @EnableCaching
-@EnableRedisHttpSession
 @Profile("dev") // profile이 local일때만 활성화
 @Data
 public class RedisConfig {

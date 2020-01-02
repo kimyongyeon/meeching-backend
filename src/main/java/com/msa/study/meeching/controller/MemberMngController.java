@@ -6,6 +6,9 @@ import com.msa.study.meeching.service.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -45,6 +48,8 @@ public class MemberMngController {
     */
    @GetMapping("/findUserId")
    public ResponseEntity<ApiResponseMessageVO> findUserId(@ModelAttribute MemberVO memberVO) {
+
+
 
       // 회원아이디 조회 트랜잭션 호출
       String userId = memberService.findByUserId(memberVO);

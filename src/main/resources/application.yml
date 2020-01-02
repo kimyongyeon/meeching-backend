@@ -18,7 +18,8 @@ spring:
     hikari:
       pool-name: hikariPool01
       driver-class-name: org.h2.Driver
-      jdbc-url: jdbc:h2:mem:meeching_local;DB_CLOSE_DELAY=-1;MODE=MySQL
+      jdbc-url: jdbc:h2:file:c:/data/test
+#      jdbc-url: jdbc:h2:mem:meeching_local;DB_CLOSE_DELAY=-1;MODE=MySQL
       user-name: sa
       password:
 
@@ -58,3 +59,8 @@ poc:
 
 server:
   port: 8081
+
+security:
+  oauth2:
+    jwt:
+      signkey: 123@#$
