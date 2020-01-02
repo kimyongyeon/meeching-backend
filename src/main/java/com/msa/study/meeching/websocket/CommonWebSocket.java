@@ -27,6 +27,11 @@ public class CommonWebSocket {
 
       app.ws("/chat", ws -> {
          ws.onConnect(ctx -> {
+            String auth = ctx.queryParam("Authorized");
+            log.debug("Authorized==" + auth);
+            if (null == auth) {
+               throw new RuntimeException("login need");
+            }
             String username = "User" + nextUserNumber++;
             userUsernameMap.put(ctx, username);
             broadcastMessage("Server", (username + " joined the chat"));

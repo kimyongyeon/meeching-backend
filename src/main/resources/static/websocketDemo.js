@@ -2,7 +2,7 @@
 let id = id => document.getElementById(id);
 
 //Establish the WebSocket connection and set up event handlers
-let ws = new WebSocket("ws://" + location.hostname + ":" + 7000 + "/chat");
+let ws = new WebSocket("ws://" + location.hostname + ":" + 7000 + "/chat?Authorized=");
 ws.onmessage = msg => updateChat(msg);
 ws.onclose = () => alert("WebSocket connection closed");
 

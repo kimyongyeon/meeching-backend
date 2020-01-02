@@ -1,4 +1,4 @@
-package com.msa.study.meeching.common.security;
+package com.msa.study.meeching.common.security.config;
 
 import com.msa.study.meeching.common.security.filter.CustomLoginBeforeFilter;
 import com.msa.study.meeching.common.security.filter.MetadataSourceFilter;
@@ -31,10 +31,9 @@ import org.springframework.web.servlet.mvc.WebContentInterceptor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
-@Configuration
-@EnableWebSecurity
+//@Configuration
+//@EnableWebSecurity
 @Slf4j
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
@@ -61,6 +60,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private MetadataSourceFilter metadataSourceFilter;
+
+
 
 
     @Bean
@@ -127,6 +128,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+//    }
 
     @Bean
     WebContentInterceptor webContentInterceptor() { // 로그인 후 백버튼 방지

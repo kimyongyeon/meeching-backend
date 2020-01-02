@@ -29,8 +29,8 @@ spring:
 #      namespace: spring:session
 
   redis:
-    host: poc-dev.redis.cache.windows.net
-    password: iafM3+Td7nKhEYzNvlFDwZ3QcK4k0befAKwfrDvec50=
+    host: localhost
+    password: 1234
     port: 6379
     timetolive: 180 # value second
   jpa: #JPA Configuration
@@ -38,6 +38,9 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+  h2:
+    console:
+      enabled: true
 
 logging:
   level:
@@ -54,4 +57,4 @@ poc:
     location: C:\uploadFile
 
 server:
-  port: 8080
+  port: 8081

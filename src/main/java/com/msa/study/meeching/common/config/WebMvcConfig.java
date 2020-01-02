@@ -4,6 +4,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
@@ -13,16 +14,20 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer, ApplicationContextAware {
+
+    private static final long MAX_AGE_SECONDS = 3600;
+
     private ApplicationContext applicationContext;
 
     public void setApplicationContext(ApplicationContext applicationContext) {
         this.applicationContext = applicationContext;
     }
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry viewControllerRegistry) {
-        viewControllerRegistry.addViewController("/").setViewName("/html/main/index.html");
-    }
+    // security 설정과 겹침. 어떻게 해야 할지 고민해 봐야 한다.
+//    @Override
+//    public void addViewControllers(ViewControllerRegistry viewControllerRegistry) {
+//        viewControllerRegistry.addViewController("/").setViewName("/html/main/index.html");
+//    }
 
     @Bean
     public SpringResourceTemplateResolver templateResolver() {
@@ -52,14 +57,22 @@ public class WebMvcConfig implements WebMvcConfigurer, ApplicationContextAware {
      * @return
      */
     @Bean
-    @Deprecated
     public WebMvcConfigurer corsConfigurer() {
         return new WebMvcConfigurer() {
             @Override
             public void addCorsMappings(CorsRegistry registry) {
-                registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE").allowedOrigins("*")
-                        .allowedHeaders("*");
+                registry.addMapping("/**")
+                        .allowedMethods("GET", "POST", "PUT", "DELETE")
+                        .allowedOrigins("*")
+                        .allowedHeaders("*")
+                        .allowCredentials(true)
+                        .maxAge(MAX_AGE_SECONDS);
             }
         };
+    }
+
+    @Bean
+    public RestTemplate getRestTemplate() {
+        return new RestTemplate();
     }
 }
